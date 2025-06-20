@@ -11,7 +11,7 @@ CORS(app, origins="http://localhost:3000")
 
 df = pd.read_csv(DATA_FILE)
 
-def clean_data(df):
+def clean_data():
     expected_types = {
         'Timestamp': 'datetime64[ns]',
         'Temperature_C': 'float64',
@@ -66,7 +66,7 @@ def get_data():
 def get_summary():
     """Fetch Summary IoT sensor data."""
     try:
-        return jsonify(clean_data(df).to_dict(orient='records')), 200
+        return jsonify(clean_data().to_dict(orient='records')), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
