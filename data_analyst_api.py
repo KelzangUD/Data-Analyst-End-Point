@@ -1,9 +1,22 @@
 from flask import Flask, request, jsonify
 import pandas as pd
 import os
+from flask_cors import CORS # Import CORS
 
 app = Flask(__name__)
 DATA_FILE = "data/iot_sensor_data.csv"
+# Initialize CORS
+# This will allow requests from 'http://localhost:3000' to any route in your Flask app.
+# You can specify methods if needed, e.g., methods=["GET", "POST"]
+CORS(app, resources={r"/data*": {"origins": "http://localhost:3000"}})
+
+# If you want to allow CORS for all origins (less secure, but quick for local development):
+# CORS(app)
+
+# If you want to allow CORS for all methods and headers from specific origin:
+# CORS(app, origins="http://localhost:3000")
+
+
 
 #ensure the data directory exists
 if not os.path.exists(DATA_FILE):
